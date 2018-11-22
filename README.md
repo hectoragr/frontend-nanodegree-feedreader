@@ -9,10 +9,9 @@ Given a web-based app that reads RSS feeds using Google JSAPI, we make sure the 
 
 When you first load the page you will see the feed from Udacity's blog, and the navitagion menu is hidden.
 
-You can then navigate to the next sections:
+You can then navigate to the next sections
 
-
-### Udacity's blog
+### Udacity blog
 Returns the last 10 entries in the main blog for [Udacity](https://blog.udacity.com)
 
 ### CSS Tricks
