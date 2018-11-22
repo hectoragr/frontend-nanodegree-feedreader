@@ -11,6 +11,7 @@ When you first load the page you will see the feed from Udacity's blog, and the 
 
 You can then navigate to the next sections:
 
+
 ### Udacity's blog
 Returns the last 10 entries in the main blog for [Udacity](https://blog.udacity.com)
 
