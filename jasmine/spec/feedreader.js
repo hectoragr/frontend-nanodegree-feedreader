@@ -38,28 +38,24 @@ $(function() {
 
     });
 
-    /* TODO: Write a new test suite named "The menu" */
+    // Suite to test Menu behaviour
     describe('The Menu', function(){
-        /* TODO: Write a test that ensures the menu element is
-         * hidden by default. You'll have to analyze the HTML and
-         * the CSS to determine how we're performing the
-         * hiding/showing of the menu element.
-         */
+        const menu = document.querySelector('.slide-menu'); // Get menu element
+        const menuLink = document.querySelector('.menu-icon-link'); // Get hamburger menu
 
+        // Menu is hidden when loaded
         it('The Menu is hidden by default', function(){
-            // TODO: get Element for menu
-            // TODO: Verify CSS attributes of menu make the element to be hidden
+            expect(menu).toBeDefined(); // Menu element is defined
+            expect(menu.parentElement.classList.contains('menu-hidden')).toBe(true); // Menu contains class that hides it
         });
 
-         /* TODO: Write a test that ensures the menu changes
-          * visibility when the menu icon is clicked. This test
-          * should have two expectations: does the menu display when
-          * clicked and does it hide when clicked again.
-          */
+        // Menu is shown when menu icon is clicked, and hidden when the latter is clicked again
         it('The Menu is shown when menu icon is clicked', function(){
-            // TODO: get Element for menu
-            // TODO: invoke click event on menu element
-            // TODO: Assert that menu's CSS attributes make the element visibile now
+            expect(menu).toBeDefined();
+            menuLink.click();
+            expect(menu.parentElement.classList.contains('menu-hidden')).toBe(false);
+            menuLink.click(); //Return to hidden
+            expect(menu.parentElement.classList.contains('menu-hidden')).toBe(true);
         });
     });
 
