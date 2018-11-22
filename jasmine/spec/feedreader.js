@@ -72,13 +72,27 @@ $(function() {
         * Given our call is asynchronous, we want to verify that the done callback is returned form
         * loadFeed when it completes, and we can then call our test which dependes on it
         */
+
+        const feedContainer = document.querySelector('.feed'); // feed container
+
         beforeEach(function(done){
-            loadFeed(0, done());
+            loadFeed(0, done);
         });
 
         it('When we call the loadFeed function, there is at least one entry in the feed', function(done){
-            // TODO: Count Entries in Feed Container
-            // TODO: Assert entries are valied and their count is greater than 0
+            expect(feedContainer).toBeDefined(); // feed container is defined
+            expect(feedContainer.childElementCount).not.toBe(0); // feed has child elements after async call
+            for (const entryLink of feedContainer.children){ // for each link element in feed Container
+                const entry = entryLink.querySelector('.entry'); // retrieve article element
+                expect(entryLink.href.trim().length).not.toBe(0); // href of link must not be empty
+                expect(entryLink.classList.contains('entry-link')).toBe(true); // entry link has class for entry-link
+                expect(entry).toBeDefined(); // article is defined
+                expect(entry.firstElementChild).toBeDefined();
+                expect(entry.lastElementChild).toBeDefined();
+                expect(entry.firstElementChild).not.toBe(entry.lastElementChild); // article childs are two and not same element
+                expect(entry.firstElementChild.tagName.toLowerCase()).toBe('h2'); // first child is H2
+                expect(entry.lastElementChild.tagName.toLowerCase()).toBe('p'); // last child is p
+            }
             done(); // We complete the callback
         });
     });
@@ -92,7 +106,7 @@ $(function() {
 
         // TODO: Loaded the before content
         beforeEach(function(done){
-            loadFeed(0, done());
+            loadFeed(0, done);
         });
 
         it('When a new feed is loaded, the content actually changes.', function(done){
