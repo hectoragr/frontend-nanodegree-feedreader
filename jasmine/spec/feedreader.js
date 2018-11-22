@@ -59,29 +59,19 @@ $(function() {
         });
     });
 
-    /* TODO: Write a new test suite named "Initial Entries" */
-
-        /* TODO: Write a test that ensures when the loadFeed
-         * function is called and completes its work, there is at least
-         * a single .entry element within the .feed container.
-         * Remember, loadFeed() is asynchronous so this test will require
-         * the use of Jasmine's beforeEach and asynchronous done() function.
-         */
+    // When we load the feed for the first time, there are entries
     describe('Initial Entries', function(){
         /*
         * Given our call is asynchronous, we want to verify that the done callback is returned form
         * loadFeed when it completes, and we can then call our test which dependes on it
         */
 
-        const feedContainer = document.querySelector('.feed'); // feed container
-
         beforeEach(function(done){
             loadFeed(0, done);
         });
 
         it('When we call the loadFeed function, there is at least one entry in the feed', function(done){
-            expect(feedContainer).toBeDefined(); // feed container is defined
-            expect(feedContainer.childElementCount).not.toBe(0); // feed has child elements after async call
+            const feedContainer = document.querySelector('.feed'); // feed container
             for (const entryLink of feedContainer.children){ // for each link element in feed Container
                 const entry = entryLink.querySelector('.entry'); // retrieve article element
                 expect(entryLink.href.trim().length).not.toBe(0); // href of link must not be empty
@@ -97,24 +87,28 @@ $(function() {
         });
     });
 
-    /* TODO: Write a new test suite named "New Feed Selection" */
+    // When we load a initially load the feed, and we load a new one. They are different
     describe('New Feed Selection', function(){
-        /* TODO: Write a test that ensures when a new feed is loaded
-         * by the loadFeed function that the content actually changes.
-         * Remember, loadFeed() is asynchronous.
-         */
 
-        // TODO: Loaded the before content
+        let firstFeed; // variable to hold initialFeed content
+
         beforeEach(function(done){
-            loadFeed(0, done);
+            loadFeed(0, function(){
+                firstFeed = document.querySelector('.feed').innerHTML; // we save first Feed
+                loadFeed(1, done); // we make async call to change content
+            });
         });
 
         it('When a new feed is loaded, the content actually changes.', function(done){
-            // TODO: Loaded the content after loadFeed has completed
-            // TODO: Assert that before content is different than this content
-            // TODO: Assert that this content lenght is greater than before content
+            let secondFeed = document.querySelector('.feed').innerHTML; // We load second content
+            expect(firstFeed.trim().length).not.toBe(0); // There was content loaded first
+            expect(secondFeed.trim().length).not.toBe(0); // There is a second content
+            expect(firstFeed).not.toEqual(secondFeed); // They are not the same content
             done();
         });
 
+        afterEach(function(done){
+            loadFeed(0, done); // We return to original content
+        });
     });
 }());
