@@ -30,7 +30,7 @@ $(function() {
             // For each element in allFeeds
             for(let feed of allFeeds) {
                 expect(feed.name).toBeDefined(); // Assert that name attribute is defined
-                expect(feed.url.trim().length).not.toBe(0); // Assert that url's lenght after trimming, is gt than 0
+                expect(feed.name.trim().length).not.toBe(0); // Assert that url's lenght after trimming, is gt than 0
             }
         });
 
@@ -47,21 +47,22 @@ $(function() {
     // Suite to test Menu behaviour
     describe('The Menu', () => {
         const menu = document.querySelector('.slide-menu'); // Get menu element
+        const body = document.getElementsByTagName('body')[0]; // Body
         const menuLink = document.querySelector('.menu-icon-link'); // Get hamburger menu
 
         // Menu is hidden when loaded
         it('is hidden by default', () => {
             expect(menu).toBeDefined(); // Menu element is defined
-            expect(menu.parentElement.classList.contains('menu-hidden')).toBe(true); // Menu contains class that hides it
+            expect(body.classList.contains('menu-hidden')).toBe(true); // Menu contains class that hides it
         });
 
         // Menu is shown when menu icon is clicked, and hidden when the latter is clicked again
         it('is shown when menu icon is clicked', () => {
             expect(menu).toBeDefined();
             menuLink.click();
-            expect(menu.parentElement.classList.contains('menu-hidden')).toBe(false);
+            expect(body.classList.contains('menu-hidden')).toBe(false);
             menuLink.click(); //Return to hidden
-            expect(menu.parentElement.classList.contains('menu-hidden')).toBe(true);
+            expect(body.classList.contains('menu-hidden')).toBe(true);
         });
     });
 
@@ -78,10 +79,12 @@ $(function() {
 
         it('when we call the loadFeed function, there is at least one entry in the feed', (done) => {
             const feedContainer = document.querySelector('.feed'); // feed container
-            for (const entryLink of feedContainer.children){ // for each link element in feed Container
+            const entryLinks = feedContainer.querySelectorAll('.entry-link');
+            expect(entryLinks.length).not.toBe(0);
+
+            for (const entryLink of entryLinks){ // for each link element in feed Container
                 const entry = entryLink.querySelector('.entry'); // retrieve article element
                 expect(entryLink.href.trim().length).not.toBe(0); // href of link must not be empty
-                expect(entryLink.classList.contains('entry-link')).toBe(true); // entry link has class for entry-link
                 expect(entry).toBeDefined(); // article is defined
                 expect(entry.firstElementChild).toBeDefined();
                 expect(entry.lastElementChild).toBeDefined();

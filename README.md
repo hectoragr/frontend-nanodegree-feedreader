@@ -24,9 +24,11 @@ Content from both [Google Developer](https://developers.google.com) and [html5ro
 Links to multiple episodes in [SoundCloud](https://soundcloud.com/) by [Linear Digressions](http://lineardigressions.com/)
 
 
-## Testing
+## How to Run
 
-To verify the Feed Reader is working just load the homepage of the Feed Reader and at the very bottom everything should be green.
+1. Clone this repository to your machine
+2. Open the [index.html](./index.html) file in your local machine
+3. Go to the bottom of the RSS Feed and verify that Jasmine is running 7 Specifications successfully. Everything should be green.
 
 
 # Contributing
